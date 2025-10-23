@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rambo - Multiplayer Browser Game</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1a1a1a;
+            color: #ffffff;
+            overflow: hidden;
+        }
+        #game-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+        }
+        #game-canvas {
+            display: block;
+            background-color: #2d2d2d;
+            border: 2px solid #4a4a4a;
+        }
+        #ui-overlay {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 5px;
+        }
+        #status {
+            margin-bottom: 10px;
+        }
+        #player-list {
+            max-height: 200px;
+            overflow-y: auto;
+        }
+        .player-item {
+            padding: 5px;
+            margin: 2px 0;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 3px;
+        }
+        #controls {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 5px;
+        }
+        .control-info {
+            margin: 5px 0;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <canvas id="game-canvas"></canvas>
+        <div id="ui-overlay">
+            <div id="status">
+                <h2>Rambo</h2>
+                <p>Status: <span id="connection-status">Connecting...</span></p>
+                <p>Players: <span id="player-count">0</span></p>
+            </div>
+            <div id="player-list"></div>
+        </div>
+        <div id="controls">
+            <h3>Controls</h3>
+            <div class="control-info">WASD / Arrow Keys: Move</div>
+            <div class="control-info">Mouse Click: Shoot</div>
+        </div>
+    </div>
+</body>
+</html>
