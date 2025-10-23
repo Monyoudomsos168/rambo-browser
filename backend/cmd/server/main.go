@@ -33,7 +33,12 @@ func main() {
 	})
 
 	// Serve static files (frontend)
-	fs := http.FileServer(http.Dir("../frontend/dist"))
+	// Support both local development and Docker deployment
+	staticDir := os.Getenv("STATIC_DIR")
+	if staticDir == "" {
+		staticDir = "../frontend/dist"
+	}
+	fs := http.FileServer(http.Dir(staticDir))
 	http.Handle("/", fs)
 
 	log.Printf("Server starting on port %s", port)

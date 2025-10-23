@@ -1,4 +1,4 @@
-.PHONY: all build-backend build-frontend build run-backend run-frontend clean test help
+.PHONY: all build-backend build-frontend build run-backend run-frontend clean test help docker-build docker-up docker-down docker-logs docker-dev-up docker-dev-down
 
 # Default target
 all: build
@@ -61,4 +61,40 @@ help:
 	@echo "  make test           - Run tests"
 	@echo "  make install-deps   - Install all dependencies"
 	@echo "  make fmt            - Format Go code"
+	@echo ""
+	@echo "Docker targets:"
+	@echo "  make docker-build   - Build Docker image"
+	@echo "  make docker-up      - Start application in Docker (production mode)"
+	@echo "  make docker-down    - Stop Docker containers"
+	@echo "  make docker-logs    - View Docker container logs"
+	@echo "  make docker-dev-up  - Start application in Docker (development mode with hot reload)"
+	@echo "  make docker-dev-down - Stop Docker development containers"
 	@echo "  make help           - Show this help message"
+
+# Docker targets
+docker-build:
+	@echo "Building Docker image..."
+	docker build -t rambo-browser:latest .
+
+docker-up:
+	@echo "Starting application with Docker Compose..."
+	docker compose up -d
+	@echo "Application is running at http://localhost:8080"
+
+docker-down:
+	@echo "Stopping Docker containers..."
+	docker compose down
+
+docker-logs:
+	@echo "Viewing Docker logs..."
+	docker compose logs -f
+
+docker-dev-up:
+	@echo "Starting application in development mode with Docker Compose..."
+	docker compose -f docker-compose.dev.yml up -d
+	@echo "Frontend dev server: http://localhost:3000"
+	@echo "Backend server: http://localhost:8080"
+
+docker-dev-down:
+	@echo "Stopping Docker development containers..."
+	docker compose -f docker-compose.dev.yml down

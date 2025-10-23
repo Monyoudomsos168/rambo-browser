@@ -19,7 +19,6 @@ yarn-error.log*
 *.dylib
 *.test
 *.out
-/vendor/
 backend/bin/
 /bin/
 /pkg/
