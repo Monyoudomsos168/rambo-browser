@@ -41,7 +41,38 @@ rambo-browser/
 
 - Node.js (v18 or higher)
 - Go (v1.21 or higher)
+- Make (optional, for using Makefile commands)
 - Optional: Supabase account for database features
+
+### Quick Start
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/Monyoudomsos168/rambo-browser.git
+   cd rambo-browser
+   ```
+
+2. Install dependencies:
+   ```bash
+   make install-deps
+   ```
+
+3. Build the application:
+   ```bash
+   make build
+   ```
+
+4. Run the backend server (in one terminal):
+   ```bash
+   make run-backend
+   ```
+
+5. Run the frontend dev server (in another terminal):
+   ```bash
+   make run-frontend
+   ```
+
+6. Open your browser and navigate to `http://localhost:3000`
 
 ### Backend Setup
 
@@ -175,6 +206,38 @@ Then set the environment variables:
 export SUPABASE_URL=https://your-project.supabase.co
 export SUPABASE_API_KEY=your-api-key
 ```
+
+## Docker Deployment
+
+You can also run the application using Docker:
+
+1. Build the frontend:
+   ```bash
+   cd frontend && npm install && npm run build
+   ```
+
+2. Build and run with Docker Compose:
+   ```bash
+   docker-compose up --build
+   ```
+
+3. Access the game at `http://localhost:8080`
+
+## Project Status
+
+This is an active project. Features currently implemented:
+- ✅ Real-time multiplayer WebSocket connection
+- ✅ Player movement and rendering
+- ✅ Canvas-based game display
+- ✅ Supabase database integration (optional)
+- ✅ Health and score tracking
+
+Future enhancements:
+- 🔄 Shooting mechanics
+- 🔄 Collision detection
+- 🔄 Power-ups and weapons
+- 🔄 Game modes (team play, battle royale, etc.)
+- 🔄 Leaderboard with Supabase
 
 ## License
 

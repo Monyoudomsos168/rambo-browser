@@ -1,5 +1,6 @@
 # Frontend (Node.js / TypeScript)
 node_modules/
+frontend/dist/
 dist/
 build/
 *.log
@@ -19,6 +20,7 @@ yarn-error.log*
 *.test
 *.out
 /vendor/
+backend/bin/
 /bin/
 /pkg/
 
