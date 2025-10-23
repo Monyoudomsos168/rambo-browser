@@ -45,7 +45,10 @@ The simplest way to run the application is using Docker. See the [Docker Deploym
 ```bash
 git clone https://github.com/Monyoudomsos168/rambo-browser.git
 cd rambo-browser
-docker compose up -d
+# Build frontend first
+cd frontend && npm install && npm run build && cd ..
+# Start with Docker
+docker compose up -d --build
 # Access at http://localhost:8080
 ```
 
@@ -248,18 +251,26 @@ The easiest way to run Rambo Browser Game is using Docker. This method doesn't r
    # Edit .env file with your Supabase credentials if needed
    ```
 
-3. Build and start the application:
+3. Build the frontend (required for the recommended Docker setup):
    ```bash
-   docker compose up -d
+   cd frontend
+   npm install
+   npm run build
+   cd ..
+   ```
+
+4. Build and start the application:
+   ```bash
+   docker compose up -d --build
    ```
    Or using Make:
    ```bash
    make docker-up
    ```
 
-4. Access the game at `http://localhost:8080`
+5. Access the game at `http://localhost:8080`
 
-5. To stop the application:
+6. To stop the application:
    ```bash
    docker compose down
    ```

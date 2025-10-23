@@ -73,12 +73,19 @@ help:
 
 # Docker targets
 docker-build:
+	@echo "Building frontend first..."
+	cd frontend && npm install && npm run build
 	@echo "Building Docker image..."
-	docker build -t rambo-browser:latest .
+	docker build -f Dockerfile.simple -t rambo-browser:latest .
 
 docker-up:
+	@echo "Building frontend if needed..."
+	@if [ ! -d "frontend/dist" ]; then \
+		echo "Frontend not built. Building now..."; \
+		cd frontend && npm install && npm run build; \
+	fi
 	@echo "Starting application with Docker Compose..."
-	docker compose up -d
+	docker compose up -d --build
 	@echo "Application is running at http://localhost:8080"
 
 docker-down:

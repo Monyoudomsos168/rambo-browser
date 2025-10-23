@@ -1,10 +1,10 @@
-version: '3.8'
-
 services:
   app:
     build:
       context: .
-      dockerfile: Dockerfile
+      # Use Dockerfile.simple for more reliable builds (requires pre-building frontend)
+      # Use Dockerfile for full multi-stage build (may have npm issues in some environments)
+      dockerfile: Dockerfile.simple
     ports:
       - "8080:8080"
     environment:

@@ -1,5 +1,10 @@
 # Multi-stage Dockerfile for Rambo Browser Game
 # This Dockerfile builds both the frontend and backend into a single container
+#
+# IMPORTANT: Due to potential npm issues in some Docker environments,
+# if the frontend build stage fails, you can pre-build the frontend locally:
+#   cd frontend && npm install && npm run build
+# Then use Dockerfile.simple instead which uses the pre-built files.
 
 # Stage 1: Build Frontend
 FROM node:18-alpine AS frontend-builder
@@ -10,7 +15,8 @@ WORKDIR /app/frontend
 COPY frontend/package*.json ./
 
 # Install all dependencies (including devDependencies needed for build)
-RUN npm ci && npm cache clean --force
+# Use npm install without clean to avoid exit handler issue
+RUN npm install
 
 # Copy frontend source
 COPY frontend/ ./

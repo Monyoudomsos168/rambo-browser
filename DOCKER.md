@@ -57,7 +57,15 @@ git clone https://github.com/Monyoudomsos168/rambo-browser.git
 cd rambo-browser
 ```
 
-2. (Optional) Create environment configuration:
+2. Build the frontend:
+```bash
+cd frontend
+npm install
+npm run build
+cd ..
+```
+
+3. (Optional) Create environment configuration:
 ```bash
 cp .env.example .env
 ```
@@ -74,11 +82,13 @@ SUPABASE_API_KEY=your-api-key-here
 
 Run the application in production mode (optimized, no hot reload):
 
+**Note**: Make sure the frontend is built first (see Installation section above).
+
 ```bash
 # Using Docker Compose
-docker compose up -d
+docker compose up -d --build
 
-# Or using Make
+# Or using Make (automatically checks and builds frontend if needed)
 make docker-up
 ```
 
@@ -115,6 +125,25 @@ make docker-dev-down
 ```
 
 ## Docker Compose Modes
+
+### Dockerfile Options
+
+The project includes two Dockerfile options:
+
+1. **Dockerfile.simple** (Recommended): Uses pre-built frontend files. More reliable and faster.
+   - Requires: `cd frontend && npm install && npm run build` before building Docker image
+   - Default in docker-compose.yml
+
+2. **Dockerfile**: Full multi-stage build that builds frontend inside Docker.
+   - May encounter npm issues in some Docker/network environments
+   - Useful if you want everything built in Docker without local Node.js
+
+To use the full Dockerfile, edit `docker-compose.yml` and change:
+```yaml
+dockerfile: Dockerfile.simple
+# to
+dockerfile: Dockerfile
+```
 
 ### Production Mode (`docker-compose.yml`)
 

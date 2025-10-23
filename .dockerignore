@@ -16,7 +16,6 @@ docker-compose.yml
 
 # Frontend
 frontend/node_modules
-frontend/dist
 frontend/.cache
 
 # Backend
