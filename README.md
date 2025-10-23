@@ -37,6 +37,25 @@ rambo-browser/
 
 ## Getting Started
 
+### Recommended: Using Docker (Easiest)
+
+The simplest way to run the application is using Docker. See the [Docker Deployment](#docker-deployment) section below for detailed instructions.
+
+**Quick start:**
+```bash
+git clone https://github.com/Monyoudomsos168/rambo-browser.git
+cd rambo-browser
+# Build frontend first
+cd frontend && npm install && npm run build && cd ..
+# Start with Docker
+docker compose up -d --build
+# Access at http://localhost:8080
+```
+
+### Alternative: Local Development Setup
+
+If you prefer to run without Docker or need to develop the application:
+
 ### Prerequisites
 
 - Node.js (v18 or higher)
@@ -209,21 +228,131 @@ export SUPABASE_API_KEY=your-api-key
 
 ## Docker Deployment
 
-You can also run the application using Docker:
+The easiest way to run Rambo Browser Game is using Docker. This method doesn't require installing Node.js or Go on your system.
 
-1. Build the frontend:
+> 📖 **For detailed Docker documentation, see [DOCKER.md](DOCKER.md)**
+
+### Prerequisites for Docker
+
+- Docker (version 20.10 or higher)
+- Docker Compose (version 2.0 or higher)
+
+### Quick Start with Docker
+
+1. Clone the repository:
    ```bash
-   cd frontend && npm install && npm run build
+   git clone https://github.com/Monyoudomsos168/rambo-browser.git
+   cd rambo-browser
    ```
 
-2. Build and run with Docker Compose:
+2. (Optional) Configure environment variables:
    ```bash
-   docker-compose up --build
+   cp .env.example .env
+   # Edit .env file with your Supabase credentials if needed
    ```
 
-3. Access the game at `http://localhost:8080`
+3. Build the frontend (required for the recommended Docker setup):
+   ```bash
+   cd frontend
+   npm install
+   npm run build
+   cd ..
+   ```
 
-## Project Status
+4. Build and start the application:
+   ```bash
+   docker compose up -d --build
+   ```
+   Or using Make:
+   ```bash
+   make docker-up
+   ```
+
+5. Access the game at `http://localhost:8080`
+
+6. To stop the application:
+   ```bash
+   docker compose down
+   ```
+   Or using Make:
+   ```bash
+   make docker-down
+   ```
+
+### Docker Development Mode
+
+For development with hot-reload capabilities:
+
+1. Start the development environment:
+   ```bash
+   docker compose -f docker-compose.dev.yml up
+   ```
+   Or using Make:
+   ```bash
+   make docker-dev-up
+   ```
+
+2. Access the application:
+   - Frontend (with hot reload): `http://localhost:3000`
+   - Backend API: `http://localhost:8080`
+
+3. Make changes to the code - the application will automatically reload
+
+4. Stop the development environment:
+   ```bash
+   docker compose -f docker-compose.dev.yml down
+   ```
+   Or using Make:
+   ```bash
+   make docker-dev-down
+   ```
+
+### Docker Commands Reference
+
+| Command | Description |
+|---------|-------------|
+| `make docker-build` | Build Docker image |
+| `make docker-up` | Start application (production mode) |
+| `make docker-down` | Stop application |
+| `make docker-logs` | View application logs |
+| `make docker-dev-up` | Start in development mode with hot reload |
+| `make docker-dev-down` | Stop development environment |
+
+### Docker Environment Variables
+
+Create a `.env` file in the project root to configure the application:
+
+```bash
+# Optional: Supabase configuration
+SUPABASE_URL=https://your-project.supabase.co
+SUPABASE_API_KEY=your-api-key-here
+```
+
+### Docker Troubleshooting
+
+**Container won't start:**
+```bash
+# View logs
+docker compose logs -f
+
+# Rebuild containers
+docker compose up --build
+```
+
+**Port already in use:**
+```bash
+# Change the port in docker-compose.yml
+ports:
+  - "8081:8080"  # Change 8080 to 8081 or any available port
+```
+
+**Clear everything and start fresh:**
+```bash
+docker compose down -v
+docker compose up --build
+```
+
+## Local Development (Without Docker)
 
 This is an active project. Features currently implemented:
 - ✅ Real-time multiplayer WebSocket connection
