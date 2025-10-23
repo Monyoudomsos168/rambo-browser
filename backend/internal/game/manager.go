@@ -45,13 +45,19 @@ func (gm *GameManager) AddPlayer(id string) {
 	gm.mu.Lock()
 	defer gm.mu.Unlock()
 
+	// Create username from ID, using first 8 chars if available
+	username := "Player_" + id
+	if len(id) > 8 {
+		username = "Player_" + id[:8]
+	}
+
 	gm.players[id] = &Player{
 		ID:       id,
 		X:        100,
 		Y:        100,
 		Health:   100,
 		Score:    0,
-		Username: "Player_" + id[:8],
+		Username: username,
 	}
 
 	log.Printf("Player %s joined the game", id)
